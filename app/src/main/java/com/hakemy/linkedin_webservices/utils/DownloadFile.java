@@ -31,7 +31,6 @@ public  class DownloadFile {
 
         byte [] login=(user+":"+password).getBytes();
 
-        // مش فاهم سطر ده
         StringBuilder stringBuilder =new StringBuilder().append("Basic ").append(Base64.encodeToString(login,Base64.DEFAULT));
 
         InputStream is = null;

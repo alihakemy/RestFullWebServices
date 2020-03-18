@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.Toast;
 import com.hakemy.linkedin_webservices.MyJsonClass.JsonFromPojo;
 import com.hakemy.linkedin_webservices.R;
@@ -49,12 +50,16 @@ public class RecyclerView_to_list_data extends AppCompatActivity implements Load
 
 
                    for (JsonFromPojo jsonFromPojo : jsonFromPojos) {
-                       //     data.append(jsonFromPojo.getItemName());
-                       //    data.append(jsonFromPojo.getImage());
+                          //  data.append(jsonFromPojo.getItemName());
+                        //  data.append(jsonFromPojo.getImage());
+                       Log.e("sd",jsonFromPojo.getCategory().toString());
 
                    }
 
-                   getSupportLoaderManager().restartLoader(0, null, RecyclerView_to_list_data.this).forceLoad();
+
+                   getSupportLoaderManager().
+                           restartLoader(0, null, RecyclerView_to_list_data.this)
+                           .forceLoad();
 
 
 
@@ -65,7 +70,9 @@ public class RecyclerView_to_list_data extends AppCompatActivity implements Load
             else if(intent.hasExtra(MyIntentServices.MyException))
             {
                 Toast.makeText(getApplicationContext(), intent.getAction(), Toast.LENGTH_LONG).show();
-                Toast.makeText(getApplicationContext(), intent.getStringExtra(MyIntentServices.MyException), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),
+                        intent.getStringExtra(MyIntentServices.MyException),
+                        Toast.LENGTH_LONG).show();
             }
 
 
@@ -97,7 +104,7 @@ public class RecyclerView_to_list_data extends AppCompatActivity implements Load
 // lazyload ==========================================================================
     private class BackgroundTask extends AsyncTask<JsonFromPojo,Void,Bitmap> {
 
-        private  String stringurl="" ;
+        private  String stringurl="http://560057.youcanlearnit.net/services/images/" ;
         private JsonFromPojo [] jsonFromPojo1 ;
 
         @Override

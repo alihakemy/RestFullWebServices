@@ -9,9 +9,9 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.EventLogTags;
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.hakemy.linkedin_webservices.MyJsonClass.JsonFromPojo;
 import com.hakemy.linkedin_webservices.RecyclerView.RecyclerView_to_list_data;
-import com.hakemy.linkedin_webservices.parser.MyXmlParser;
 import com.hakemy.linkedin_webservices.utils.DownloadFile;
 
 import java.io.IOException;
@@ -68,27 +68,31 @@ public class MyIntentServices  extends IntentService {
 
         }
         //================================json===========================================
-        // Gson gson =new Gson();
-        //1- string that contain json file
+         Gson gson =new Gson();
+       // 1- string that contain json file
         //2- tell json while class use to represent data in memory
-        //JsonFromPojo jsonFromPojo[] =gson.fromJson(json,JsonFromPojo[].class);
+        JsonFromPojo jsonFromPojo[] =gson.fromJson(json,JsonFromPojo[].class);
+        Intent intent1 = new Intent(my_service_msg); // constuctor that recieve single string kwon as action
+            intent1.putExtra(my_service_payload, jsonFromPojo);
+            LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(getApplicationContext());
+            localBroadcastManager.sendBroadcast(intent1);
 //=================================================================================
 
 //=================================xml=============================================
 
-        if(json!=null)
-        {
-            JsonFromPojo[] jsonFromPojo = MyXmlParser.parseFeed(json);
-
-            //local Broadcast
-            // note you can send JsonFromPOJo  because implement Parcable  that make you set data in extra
-            // that mean can package data up in intent and pass back to activity
-            Intent intent1 = new Intent(my_service_msg); // constuctor that recieve single string kwon as action
-            intent1.putExtra(my_service_payload, jsonFromPojo);
-            LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(getApplicationContext());
-            localBroadcastManager.sendBroadcast(intent1);
-
-        }
+//        if(json!=null)
+//        {
+//            JsonFromPojo[] jsonFromPojo = MyXmlParser.parseFeed(json);
+//
+//            //local Broadcast
+//            // note you can send JsonFromPOJo  because implement Parcable  that make you set data in extra
+//            // that mean can package data up in intent and pass back to activity
+//            Intent intent1 = new Intent(my_service_msg); // constuctor that recieve single string kwon as action
+//            intent1.putExtra(my_service_payload, jsonFromPojo);
+//            LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(getApplicationContext());
+//            localBroadcastManager.sendBroadcast(intent1);
+//
+//        }
 
 
 

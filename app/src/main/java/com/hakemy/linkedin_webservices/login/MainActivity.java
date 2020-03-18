@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private TextView textView ,data;
     private Button button;
     private String String_url_of_json="http://560057.youcanlearnit.net/secured/json/itemsfeed.php";
-    private String String_url_of_Xml="http://560057.youcanlearnit.net/secured/xml/itemsfeed.php";
+   // private String String_url_of_Xml="http://560057.youcanlearnit.net/secured/xml/itemsfeed.php";
     private  boolean NetworkOk;
     private BroadcastReceiver broadcastReceiver =new BroadcastReceiver() {
         @Override
@@ -79,7 +79,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textView=(TextView)findViewById(R.id.text);
-        data=(TextView)findViewById(R.id.data);
         password =(EditText) findViewById(R.id.password);
         user=(EditText) findViewById(R.id.name);
         button =(Button) findViewById(R.id.btn);
@@ -90,7 +89,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
             NetworkOk =NetworkHelper.hasNetworkAcces(this);
 
-            textView.append("net"+NetworkOk);
 
 
 
@@ -221,12 +219,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         protected Integer doInBackground(String... strings)
         {
             Intent intent = new Intent(getApplicationContext(), MyIntentServices.class);
-            intent.setData(Uri.parse(String_url_of_Xml));
+            intent.setData(Uri.parse(String_url_of_json));
             intent.putExtra("name",user.getText().toString());
             intent.putExtra("pass",password.getText().toString());
-            //  Bundle bundle =new Bundle();
-            // bundle.putString("a","a");
-            //  intent.putExtras(bundle);
+
             startService(intent);
             return DownloadFile.responseCode;
         }
